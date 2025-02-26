@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-/* MERGE MAIN TEST */
+/* MERGE MAIN TEST 2 - Authenticated bot */
 
 export default function Home() {
   return (
