@@ -1,0 +1,26 @@
+name: Auto Merge PRs
+
+on:
+  pull_request:
+    types:
+      - closed # Trigger when PR is closed (merged)
+
+jobs:
+  auto-merge:
+    if: github.event.pull_request.merged == true # Run only if PR was merged
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Merge PR changes
+        run: |
+          git merge origin/${{ github.event.pull_request.head.ref }}
+          git push origin main
