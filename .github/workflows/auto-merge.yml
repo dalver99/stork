@@ -3,12 +3,15 @@ name: Auto Merge PRs
 on:
   pull_request:
     types:
-      - closed # Trigger when PR is closed (merged)
+      - opened # Trigger when a PR is created
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.merged == true # Run only if PR was merged
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
 
     steps:
       - name: Checkout master branch
@@ -17,10 +20,8 @@ jobs:
           ref: master
           fetch-depth: 0
 
-      - name: Pull latest changes
-        run: git pull origin master
-
-      - name: Merge PR changes
+      - name: Auto-merge PR
         run: |
-          git merge origin/${{ github.event.pull_request.head.ref }}
-          git push origin master
+          gh pr merge ${{ github.event.pull_request.number }} --merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
