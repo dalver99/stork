@@ -1,6 +1,7 @@
 // import { Geist, Geist_Mono } from "next/font/google";
 import AuthProvider from "@/providers/AuthProvider";
 import "./globals.css";
+import KakaoScript from "@/providers/KakaoScript";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
           className={`antialiased`}
         >
           {children}
+          <KakaoScript />
         </body>
       </html>
     </AuthProvider>
