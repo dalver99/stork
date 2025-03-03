@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 # Configure CORS to allow requests from NextJS
 CORS(app, 
-     resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}},
+     resources={r"/flask-api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}},
      supports_credentials=True)
 
 # Add OPTIONS method handling for preflight requests
@@ -61,8 +61,8 @@ def test_endpoint():
     return jsonify({"status": "Server is running", "message": "This is a test endpoint"})
 
 # Register blueprint
-app.register_blueprint(sparkapi, url_prefix='/api/sparkapi')
+app.register_blueprint(sparkapi, url_prefix='/flask-api/sparkapi')
 
 if __name__ == "__main__":
-    print("Starting Flask server on port 5328...")
-    app.run(debug=True, host='0.0.0.0', port=5328)
+    print("Starting Flask server on port 5000...")
+    app.run(debug=True, host='0.0.0.0', port=5000)
